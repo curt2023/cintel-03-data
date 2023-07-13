@@ -20,6 +20,13 @@ def get_mtcars_inputs():
             max=35,
             value=[10, 35],
         ),
+        ui.input_slider(
+            "MTCARS_QSEC_RANGE",
+            "1/4 Mile Times",
+            min=5,
+            max=100,
+            value=[10, 35],
+        ),
         ui.tags.hr(),
         ui.tags.section(
             ui.h3("MT Cars Table"),

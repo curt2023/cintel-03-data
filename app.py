@@ -24,7 +24,7 @@ from util_logger import setup_logger
 logger, logname = setup_logger(__name__)
 
 app_ui = ui.page_navbar(
-    shinyswatch.theme.lumen(),
+    shinyswatch.theme.superhero(),
     ui.nav(
         "Home",
         ui.layout_sidebar(
@@ -34,9 +34,14 @@ app_ui = ui.page_navbar(
                 ui.h3("User Interaction Here"),
                 ui.input_text("name_input", "Enter your name", placeholder="Your Name"),
                 ui.input_text(
-                    "language_input",
-                    "Enter your favorite language(s)",
-                    placeholder="Favorite Programming Language(s)",
+                    "car_input",
+                    "Enter your favorite cars",
+                    placeholder="Favorite Cars"
+                ),
+                ui.input_text(
+                    "animal_input",
+                    "Enter your favorite Animal",
+                    placeholder="Favorite Animal"
                 ),
                 ui.tags.hr(),
             ),
@@ -55,7 +60,8 @@ app_ui = ui.page_navbar(
                 ui.h2("Main Panel with Reactive Output"),
                 ui.tags.hr(),
                 ui.output_text_verbatim("welcome_output"),
-                ui.output_text_verbatim("insights_output"),
+                ui.output_text_verbatim("cars_output"),
+                ui.output_text_verbatim("animal_output"),
                 ui.tags.hr(),
             ),
         ),
@@ -74,12 +80,12 @@ app_ui = ui.page_navbar(
             get_penguins_outputs(),
         ),
     ),
-    ui.nav(ui.a("About", href="https://github.com/denisecase")),
-    ui.nav(ui.a("GitHub", href="https://github.com/denisecase/cintel-03-data")),
-    ui.nav(ui.a("App", href="https://denisecase.shinyapps.io/cintel-03-data/")),
+    ui.nav(ui.a("About", href="https://github.com/curt2023")),
+    ui.nav(ui.a("GitHub", href="https://github.com/curt2023/cintel-03-data")),
+    ui.nav(ui.a("App", href="https://curt2023.shinyapps.io/cintel-03-data/")),
     ui.nav(ui.a("Examples", href="https://shinylive.io/py/examples/")),
     ui.nav(ui.a("Themes", href="https://bootswatch.com/")),
-    title=ui.h1("Case Dashboard"),
+    title=ui.h1("Rogers Dashboard"),
 )
 
 
@@ -90,15 +96,23 @@ def server(input, output, session):
     @render.text
     def welcome_output():
         user = input.name_input()
-        welcome_string = f"Greetings {user}!"
+        welcome_string = f"{user} Start you ENGINES!"
         return welcome_string
 
     @output
     @render.text
-    def insights_output():
-        answer = input.language_input()
+    def cars_output():
+        answer = input.car_input()
         count = len(answer)
-        language_string = f"You like {answer}. That takes {count} characters"
+        language_string = f"Your favorite cars are {answer}. That takes {count} characters"
+        return language_string
+    
+    @output
+    @render.text
+    def animal_output():
+        answer = input.animal_input()
+        count = len(answer)
+        language_string = f"Your favorite animals are {answer}. That takes {count} characters"
         return language_string
 
     get_mtcars_server_functions(input, output, session)
